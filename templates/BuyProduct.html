@@ -1,0 +1,52 @@
+<!doctype html>
+<link href="/static/category.css">
+<html>
+<header>
+        <!--                        NavBar Start                    -->
+                            {% include 'AppBar.html' %}
+<!--                                NavBar END                 -->
+</header>
+<body>
+<div class="container" style="padding: 25px 0px;">
+    <div class="row">
+        <div class="col s6">
+            <img src="/static/{{ product.productimg }} "width="70%">
+        </div>
+        <div class="col s6">
+            <div style="font-family: Arial; font-size: 38px;line-height: 42px;">{{product.productname}}</div>
+            <div>
+            <span style="margin: 10px 10px">{{product.cname}}</span><span style="margin: 10px 20px;">{{product.scname}}</span>
+            </div>
+            <div style="margin-top: 20px; margin-bottom: 30px">
+               <hr size="3" width="100%" color="black">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <span style="font-family: Arial; font-size: 23px;">Best Price: <u> {{product.offerprice}} </u></span>
+                <span>MRP:<s>₹{{product.price}}</s></span>
+                <span>(Inclusive of all taxes)</span>
+                    <ul >
+                        <li>* This product cannot be returned for a refund or exchange.</li>
+                        <li>* Mkt: {{product.bname}} Pvt. Ltd.</li>
+                        <li>* Country of Origin: India.</li>
+                        <li>* Delivery charges if applicable will be applied at checkout.</li>
+                    </ul>
+            </div>
+            <div>
+               <span id="qtycomponents">
+                   <a productid="{{product.productid}}" product="{{product}}" class="btn-floating btn-small minus" style="background:#34495e;margin-right: 5px;"><i class="material-icons">remove</i></a>
+                      <span id="qty">1</span>
+                    <a product="{{product}}" class="btn-floating btn-small plus" style="background:#34495e;margin: 0px 10px 0px 5px;"><i class="material-icons">add</i></a>
+               </span>
+              <button product="{{product}}" class="btn addtocart " style="margin-right: 10px;color:white; background:#34495e;">Add To Cart</button>
+              <button class="btn" style="margin-left: 10px;background:#34495e; color:white;">Buy Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--                           Footer Start                    -->
+
+
+    {% include 'footer.html' %}
+<!--                                Footer END                 -->
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"  href="/static/category.css">
+<head>
+    <script>
+        window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted ||
+                         ( typeof window.performance != "undefined" &&
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+    </script>
+    <style>
+          #myBtn {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #34495e;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color:#34495e ;
+  font-weight:700;
+}
+    </style>
+</head>
+<title>User InterFace</title>
+<body>
+<!--                                NavBar Start                    -->
+                            {% include 'AppBar.html' %}
+<!--                                NavBar END                 -->
+<a href="http://localhost:8000/labtest/"><button id="myBtn">Lab Test</button></a>
+<div>
+   <div class="carousel carousel-slider"data-bs-interval="1000">
+    <a class="carousel-item" href="#one!"><img src="/static/1user.jpg"></a>
+    <a class="carousel-item" href="#two!"><img src="/static/2user.jpg"></a>
+    <a class="carousel-item" href="#three!"><img src="/static/3user.jpg"></a>
+    <a class="carousel-item" href="#four!"><img src="/static/4 user.jpg"></a>
+  </div>
+</div>
+
+<!--sub category-->
+
+<div style="margin-left:5%">
+    <div id="subcategorylist" style="display:flex; flex-direction:row;flex-wrap:wrap;padding:2% 0% 2% 1%;">
+
+    </div>
+</div>
+
+<div id="productlist" style="padding:5px; display:flex; flex-direction: row; flex-wrap:wrap;">
+
+</div>
+    <script type="text/javascript">
+    (function(d, m){
+        var kommunicateSettings =
+            {"appId":"29bf7e789f2ee4d3d009406e157ae7479","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+</script>
+
+<!--                           Footer Start                    -->
+                          {% include 'footer.html' %}
+<!--                            Footer END                 -->
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+ <script>
+    $(document).ready(function(){
+       var newdata={}
+       $.getJSON('http://localhost:8000/fetch_all_products',function(data){
+          data.data.map((item)=>{
+            newdata[item.productname]=null
+          })
+       })
+        $('input.autocomplete').autocomplete({
+
+         data: newdata
+      })
+
+       $('.carousel.carousel-slider').carousel({
+         fullWidth: true,
+         indicators: true,
+         autoplay: true
+         })
+  });
+ </script>
+<script>
+    let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+</script>
+
+</html>

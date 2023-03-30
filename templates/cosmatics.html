@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"  href="/static/category.css">
+
+	<title>Cosmetics Category</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!--                          Nav bar Start                  -->
+                            {% include 'AppBar2.html' %}
+<!--                          nav Bar End                    -->
+<div id="productlist" style="margin-left:10%; padding:5px; display:flex; flex-direction: row; flex-wrap:wrap;"></div>
+<!--                           Footer Start                    -->
+                          {% include 'footer.html' %}
+<!--                            Footer END                 -->
+
+</body>
+<script>
+	$.getJSON("http://localhost:8000/fetch_all_products",function(data){
+   var htm=''
+   var price
+   var offerprice
+   var save
+   data.data.map((item)=>{
+   if(item.categoryid==68)
+ {
+   if(item.offerprice>0)
+   {
+        price="<s style='color:red;'>"+item.price+"</s>"
+        offerprice=item.offerprice
+        save=item.price-item.offerprice
+   }
+   else
+   {
+        offerprice=item.price
+        price="<div> </div>"
+        save="<div> </div>"
+   }
+   var data=JSON.stringify(item)
+    htm+=`<a style="text-decoration:none;" href='http://localhost:8000/buyproduct?product=${data}'><div style=" padding:5px; width:230px; display:flex; flex-direction:column; align-items: center; margin:10px;height:336px; border:1px solid #bdc3c7;box-shadow: 2px 3px #ecf0f1; border-radius: 10px;">
+             <div>
+                <img src="http://localhost:8000/static/${item.productimg}" style='width:150px; height:150px;'>
+             </div>
+             <div style="padding:10px;">
+                  <div style="color:#34495e;width:200px; font-weight:bolder; text-align:left;">
+                      ${item.productname} ${item.scname}
+                  </div>
+                  <div style=" width:200px; font-size:13px; text-align:left;">
+                      <i>mkt:${item.bname}</i>
+                  </div>
+                  <div style=" width:200px; font-weight:bolder; text-align:left;">
+                   Actual Price &#8377 ${price}
+                  </div>
+                  <div style=" width:200px; font-weight:bolder; text-align:left;">
+                    Offer Price &#8377 ${offerprice}
+                  </div>
+                  <div style=" width:200px; font-weight:bolder; text-align:left;color:green;">
+                   You Save &#8377 ${save}
+                  </div>
+             </div>
+          </div></a>`
+          }
+   })
+   $('#productlist').html(htm)
+ })
+</script>
+</html>
